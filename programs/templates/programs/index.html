@@ -1,0 +1,9 @@
+{% if institution_list %}
+<ul>
+  {% for institution in institution_list %}
+    <li><a href="{% url 'detail' institution.id %}">{{institution.name}}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>No institutions to show.</p>
+{% endif %}

@@ -1,0 +1,14 @@
+<h1>{{ institution.name }}</h1>
+<address>{{institution.state}}, {{institution.zipcode}}</address>
+<h2>Courses</h2>
+<ul>
+{% for course in institution.course_set.all %}
+    <li>{{ course.name }}</li>
+{% endfor %}
+</ul>
+<h2>Stats</h2>
+<ul>
+  {% for rate in institution.gradrates_set.all %}
+    <li>{{rate.year}}: {{rate.count}}</li>
+  {% endfor %}
+</ul>
