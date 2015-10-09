@@ -16,11 +16,16 @@
     <div class="panel-heading">Institutions</div>
     <div class="panel-body">
       {% if institution_list %}
-      <ul>
+      <div class=".col-md-4">
+      <table class="table">
+        <thead><td>Institution</td><td>Average graduates</td><td>State</td></thead>
         {% for institution in institution_list %}
-          <li><a href="{% url 'detail' institution.id %}">{{institution.name}}</a></li>
+          <tr><td><a href="{% url 'detail' institution.id %}">{{institution.name}}</a></td>
+          <td>{{institution.avg_grads}}</td>
+          <td>{{institution.state}}</td>
         {% endfor %}
-      </ul>
+      </table>
+    </div>
       {% else %}
         <p>No institutions to show.</p>
       {% endif %}

@@ -15,6 +15,12 @@ class Institution(models.Model):
     #offerings should count courses
     USNewsRank = models.IntegerField(blank=True,null=True)
 
+    def avg_grads(self):
+        list = [rate.count for rate in self.gradrate_set.all()]
+        if len(list)==0:
+            return ""
+        return sum(list)/len(list)
+
 class Instructor(models.Model):
     def __str__(self):
         return self.name
@@ -22,6 +28,7 @@ class Instructor(models.Model):
     name = models.CharField(max_length=200)
     institution = models.ForeignKey(Institution)
     email = models.EmailField(max_length=200)
+
 
 class Course(models.Model):
     def __str__(self):

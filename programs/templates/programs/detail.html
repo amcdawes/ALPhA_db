@@ -17,7 +17,7 @@
   <address>{{institution.state}}, {{institution.zipcode}}</address>
     <div class="panel panel-default">
       {% for instructor in institution.instructor_set.all %}
-        <div class="panel-heading">{{ instructor.name }}</div>
+        <div class="panel-heading"><a href="mailto:{{instructor.email}}">{{ instructor.name }}</a></div>
           <div class="panel-body">
             <ul>
               {% for course in instructor.course_set.all %}
@@ -25,15 +25,20 @@
               {% endfor %}
             </ul>
           </div>
-    {% endfor %}
+      {% endfor %}
     </div>
 
       <h2>Stats</h2>
-      <ul>
-        {% for rate in institution.gradrates_set.all %}
-          <li>{{rate.year}}: {{rate.count}}</li>
-        {% endfor %}
-      </ul>
+      <div class="container">
+        <div class="col-md-4">
+        <table class="table">
+          <thead><td>Year</td><td>Graduates</td></thead>
+          {% for rate in institution.gradrate_set.all %}
+            <tr><td>{{rate.year}}</td><td>{{rate.count}}</td></tr>
+          {% endfor %}
+        </table>
+      </div>
+      </div>
     </div>
   </div>
 </div>
