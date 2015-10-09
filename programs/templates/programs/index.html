@@ -1,9 +1,33 @@
-{% if institution_list %}
-<ul>
-  {% for institution in institution_list %}
-    <li><a href="{% url 'detail' institution.id %}">{{institution.name}}</a></li>
-  {% endfor %}
-</ul>
-{% else %}
-  <p>No institutions to show.</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <h1>ALPhA Program Database</h1>
+  <div class="panel panel-default">
+    <div class="panel-heading">Institutions</div>
+    <div class="panel-body">
+      {% if institution_list %}
+      <ul>
+        {% for institution in institution_list %}
+          <li><a href="{% url 'detail' institution.id %}">{{institution.name}}</a></li>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p>No institutions to show.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="container">
+  Copyright 2015 A.M.C. Dawes
+</div>
+</html>

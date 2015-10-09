@@ -1,14 +1,43 @@
-<h1>{{ institution.name }}</h1>
-<address>{{institution.state}}, {{institution.zipcode}}</address>
-<h2>Courses</h2>
-<ul>
-{% for course in institution.course_set.all %}
-    <li>{{ course.name }}</li>
-{% endfor %}
-</ul>
-<h2>Stats</h2>
-<ul>
-  {% for rate in institution.gradrates_set.all %}
-    <li>{{rate.year}}: {{rate.count}}</li>
-  {% endfor %}
-</ul>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <h1>{{ institution.name }}</h1>
+  <address>{{institution.state}}, {{institution.zipcode}}</address>
+    <div class="panel panel-default">
+      {% for instructor in institution.instructor_set.all %}
+        <div class="panel-heading">{{ instructor.name }}</div>
+          <div class="panel-body">
+            <ul>
+              {% for course in instructor.course_set.all %}
+                <li>{{ course.name }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+    {% endfor %}
+    </div>
+
+      <h2>Stats</h2>
+      <ul>
+        {% for rate in institution.gradrates_set.all %}
+          <li>{{rate.year}}: {{rate.count}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container">
+  Copyright 2015 A.M.C. Dawes
+</div>
+</html>

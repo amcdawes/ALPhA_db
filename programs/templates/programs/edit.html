@@ -1,0 +1,12 @@
+<h1>{{ institution.name }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'update' institution.id %}" method="post">
+{% csrf_token %}
+{% for course in course.choice_set.all %}
+    <input type="radio" name="course" id="course{{ forloop.counter }}" value="{{ course.id }}" />
+    <label for="course{{ forloop.counter }}">{{ course.name }}</label><br />
+{% endfor %}
+<input type="submit" value="Update" />
+</form>

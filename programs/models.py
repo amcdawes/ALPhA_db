@@ -15,6 +15,14 @@ class Institution(models.Model):
     #offerings should count courses
     USNewsRank = models.IntegerField(blank=True,null=True)
 
+class Instructor(models.Model):
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=200)
+    institution = models.ForeignKey(Institution)
+    email = models.EmailField(max_length=200)
+
 class Course(models.Model):
     def __str__(self):
         return self.name
@@ -34,9 +42,7 @@ class Course(models.Model):
                              default=FIRST_TERM_SOPH)
 
     name = models.CharField(max_length=100)
-    instructor = models.CharField(max_length=100)
-    institution = models.ForeignKey(Institution)
-
+    instructor = models.ForeignKey(Instructor)
 
 class GradRate(models.Model):
     institution = models.ForeignKey(Institution)
