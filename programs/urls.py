@@ -1,10 +1,12 @@
 from django.conf.urls import url
 
-from . import views
+from .views import *
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
-    url(r'^(?P<pk>[0-9]+)/edit/$', views.EditView.as_view(), name='edit'),
-    url(r'^(?P<institution_id>[0-9]+)/update/$', views.update, name='update'),
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^(?P<pk>[0-9]+)/$', DetailView.as_view(), name='detail'),
+    url(r'^(?P<pk>[0-9]+)/edit/$', EditView.as_view(), name='edit'),
+    url(r'instructor/add/$', InstructorCreate.as_view(), name='instructor_add'),
+    url(r'instructor/(?P<pk>[0-9]+)/$', InstructorUpdate.as_view(), name='instructor_update'),
+    url(r'instructor/(?P<pk>[0-9]+)/delete/$', InstructorDelete.as_view(), name='instructor_delete'),
 ]

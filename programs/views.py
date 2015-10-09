@@ -1,9 +1,12 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 
 # Create your views here.
 
-from .models import Institution
+from .models import Institution, Instructor
+# from .forms import AddInstructorForm
 
 # def index(request):
 #     institution_list = Institution.objects.order_by('name')
@@ -32,5 +35,14 @@ class EditView(generic.DetailView):
     model = Institution
     template_name = 'programs/edit.html'
 
-def update(request, institution_id):
-    print("update called")
+class InstructorCreate(CreateView):
+    model = Instructor
+    fields = ['name','email','institution']
+
+class InstructorUpdate(UpdateView):
+    model = Instructor
+    fields = ['name','email','institution']
+
+class InstructorDelete(DeleteView):
+    model = Instructor
+    success_url = reverse_lazy('instructor_list')
