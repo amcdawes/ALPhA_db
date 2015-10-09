@@ -9,7 +9,7 @@ class Institution(models.Model):
 
     name = models.CharField(max_length=200)
     state = models.CharField(max_length=20)
-    zipcode = models.IntegerField()
+    zipcode = models.CharField(max_length=20)
     #gradrates are associated keys
     #numberOfLabs comes from counting courses
     #offerings should count courses

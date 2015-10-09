@@ -1,4 +1,8 @@
 from django.contrib import admin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+
 
 # Register your models here.
 
@@ -16,13 +20,19 @@ class GradRateInline(admin.TabularInline):
     model = GradRate
     extra = 2
 
-class InstitutionAdmin(admin.ModelAdmin):
+
+class InstitutionResource(resources.ModelResource):
+    class Meta:
+        model = Institution
+
+class InstitutionAdmin(ImportExportModelAdmin):
     inlines = [InstructorInline,GradRateInline]
+    resource_class = InstitutionResource
 
 class InstructorAdmin(admin.ModelAdmin):
     inlines = [CourseInline]
 
+
 admin.site.register(Institution, InstitutionAdmin)
-#admin.site.register(Institution)
 admin.site.register(Instructor, InstructorAdmin)
 admin.site.register(Course)
