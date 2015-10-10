@@ -21,18 +21,12 @@ class Institution(models.Model):
             return ""
         return sum(list)/len(list)
 
+    def get_absolute_url(self):
+        return reverse('institution_detail', kwargs={'pk': self.pk})
+
     class Meta:
         ordering = ['name']
 
-class Instructor(models.Model):
-    def __str__(self):
-        return self.name
-
-    name = models.CharField(max_length=200)
-    institution = models.ForeignKey(Institution)
-    email = models.EmailField(max_length=200)
-    def get_absolute_url(self):
-        return reverse('instructor_detail', kwargs={'pk': self.pk})
 
 
 class Course(models.Model):
@@ -54,7 +48,24 @@ class Course(models.Model):
                              default=FIRST_TERM_SOPH)
 
     name = models.CharField(max_length=100)
-    instructor = models.ForeignKey(Instructor)
+    institution = models.ForeignKey(Institution)
+    def get_absolute_url(self):
+        return reverse('course_detail', kwargs={'pk': self.pk})
+
+
+class Instructor(models.Model):
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=200)
+    institution = models.ForeignKey(Institution)
+    courses = models.ManyToManyField(Course,blank=True)
+    email = models.EmailField(max_length=200)
+    def get_absolute_url(self):
+        return reverse('instructor_detail', kwargs={'pk': self.pk})
+
+
+
 
 class GradRate(models.Model):
     institution = models.ForeignKey(Institution)

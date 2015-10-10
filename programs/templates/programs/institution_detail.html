@@ -15,37 +15,46 @@
 <div class="container">
   <h1>{{ institution.name }}</h1>
   <address>{{institution.state}}, {{institution.zipcode}}</address>
-    <div class="panel panel-default">
-      {% for instructor in institution.instructor_set.all %}
-        <div class="panel-heading">
-          <div class="col-md-3">
-          <a href="mailto:{{instructor.email}}">{{ instructor.name }}</a>
-          </div>
-           <a type="button" class="btn btn-default" href="{% url 'instructor_detail' instructor.id %}">Details</a>
-           <a type="button" class="btn btn-warning" href="{% url 'instructor_update' instructor.id %}">Update</a>
-           <a type="button" class="btn btn-danger" href="{% url 'instructor_delete' instructor.id %}">Delete</a>
-         </div>
-          <div class="panel-body">
-            <ul>
-              {% for course in instructor.course_set.all %}
-                <li>{{ course.name }}  ({{ course.get_level_display }})</li>
-              {% endfor %}
-            </ul>
-          </div>
-      {% endfor %}
-    </div>
-
-      <h2>Stats</h2>
-      <div class="container">
-        <div class="col-md-4">
-        <table class="table">
-          <thead><td>Year</td><td>Graduates</td></thead>
-          {% for rate in institution.gradrate_set.all %}
-            <tr><td>{{rate.year}}</td><td>{{rate.count}}</td></tr>
+  <a type="button" class="btn btn-default" href="{% url 'instructor_add' institution.id %}">Add Instructor</a>
+  <div class="panel panel-default">
+    {% for instructor in institution.instructor_set.all %}
+      <div class="panel-heading">
+        <div class="col-md-3">
+          {{ instructor.name }}
+        </div>
+        <a type="button" class="btn btn-default" href="{% url 'instructor_detail' instructor.id %}">Details</a>
+        <a type="button" class="btn btn-warning" href="{% url 'instructor_update' instructor.id %}">Update</a>
+        <a type="button" class="btn btn-danger" href="{% url 'instructor_delete' instructor.id %}">Delete</a>
+      </div>
+      <div class="panel-body">
+        <ul>
+          {% for course in instructor.courses.all %}
+            <li>{{ course.name }}</a>  ({{ course.get_level_display }})</li>
           {% endfor %}
-        </table>
+        </ul>
       </div>
-      </div>
+    {% endfor %}
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">All classes:</div>
+    <!-- TODO, make this filter only orphan classes -->
+    <div class="panel-body">
+      <ul>
+        {% for course in institution.course_set.all %}
+          <li>{{ course.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <h2>Stats</h2>
+  <div class="container">
+    <div class="col-md-4">
+      <table class="table">
+        <thead><td>Year</td><td>Graduates</td></thead>
+        {% for rate in institution.gradrate_set.all %}
+          <tr><td>{{rate.year}}</td><td>{{rate.count}}</td></tr>
+        {% endfor %}
+      </table>
     </div>
   </div>
 </div>

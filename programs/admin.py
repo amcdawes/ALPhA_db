@@ -26,13 +26,11 @@ class InstitutionResource(resources.ModelResource):
         model = Institution
 
 class InstitutionAdmin(ImportExportModelAdmin):
-    inlines = [InstructorInline,GradRateInline]
+    inlines = [CourseInline,InstructorInline,GradRateInline]
     resource_class = InstitutionResource
 
-class InstructorAdmin(admin.ModelAdmin):
-    inlines = [CourseInline]
 
 
 admin.site.register(Institution, InstitutionAdmin)
-admin.site.register(Instructor, InstructorAdmin)
 admin.site.register(Course)
+admin.site.register(Instructor)

@@ -13,13 +13,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <div class="container">
-  <h1>{{ instructor.name }}</h1>
-  <h2><a href="{% url 'institution_detail' instructor.institution.id %}">{{ instructor.institution }}</a>, {{ instructor.institution.state }}</h2>
+  <h1>{{ course.name }}</h1>
+  <h2>{{course.institution}}</h2>
     <div class="panel panel-default">
-      {% for course in instructor.courses.all %}
-        <div class="panel-heading">{{ course.name }}</a></div>
+      {% for instructor in course.instructor_set.all %}
+        <div class="panel-heading">Instructor: {{ instructor.name }}</a></div>
           <div class="panel-body">
-            {{ course.get_level_display }}
+            Level: {{course.get_level_display}}
           </div>
       {% endfor %}
     </div>
