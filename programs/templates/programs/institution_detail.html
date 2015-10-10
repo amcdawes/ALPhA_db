@@ -1,55 +1,50 @@
+{% include "programs/header.html" %}
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<div class="container">
-  <h1>{{ institution.name }}</h1>
-  <address>{{institution.state}}, {{institution.zipcode}}</address>
-  <a type="button" class="btn btn-default" href="{% url 'instructor_add' institution.id %}">Add Instructor</a>
-  <a type="button" class="btn btn-default" href="{% url 'course_add' institution.id %}">Add Course</a>
-  <div class="panel panel-default">
-    {% for instructor in institution.instructor_set.all %}
-      <div class="panel-heading">
-        <div class="col-md-3">
-          {{ instructor.name }}
-        </div>
-        <a type="button" class="btn btn-default" href="{% url 'instructor_detail' instructor.id %}">Details</a>
-        <a type="button" class="btn btn-warning" href="{% url 'instructor_update' instructor.id %}">Update</a>
-        <a type="button" class="btn btn-danger" href="{% url 'instructor_delete' instructor.id %}">Delete</a>
-      </div>
-      <div class="panel-body">
-        <ul>
-          {% for course in instructor.courses.all %}
-            <li>{{ course.name }}</a>  ({{ course.get_level_display }})</li>
-          {% endfor %}
-        </ul>
-      </div>
-    {% endfor %}
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">All classes:</div>
-    <!-- TODO, make this filter only orphan classes -->
-    <div class="panel-body">
-      <ul>
-        {% for course in institution.course_set.all %}
-          <li>{{ course.name }}</li>
-        {% endfor %}
-      </ul>
+  <div class="row">
+    <div class="col-md-8">
+      <h1>{{ institution.name }} <small>{{institution.state}}, {{institution.zipcode}}</small></h1>
+    </div>
+    <div class="col-md-4">
+      <a type="button" class="btn btn-default" href="{% url 'instructor_add' institution.id %}">Add Instructor</a>
+      <a type="button" class="btn btn-default" href="{% url 'course_add' institution.id %}">Add Course</a>
     </div>
   </div>
-  <h2>Stats</h2>
-  <div class="container">
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="panel panel-default">
+        {% for instructor in institution.instructor_set.all %}
+          <div class="panel-heading">
+            <div class="col-md-3">
+              {{ instructor.name }}
+            </div>
+            <a type="button" class="btn btn-default" href="{% url 'instructor_detail' instructor.id %}">Details</a>
+            <a type="button" class="btn btn-warning" href="{% url 'instructor_update' instructor.id %}">Update</a>
+            <a type="button" class="btn btn-danger" href="{% url 'instructor_delete' instructor.id %}">Delete</a>
+          </div>
+          <div class="panel-body">
+            <ul>
+              {% for course in instructor.courses.all %}
+                <li>{{ course.name }}</a>  ({{ course.get_level_display }})</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">All classes:</div>
+        <!-- TODO, make this filter only orphan classes -->
+        <div class="panel-body">
+          <ul>
+            {% for course in institution.course_set.all %}
+              <li>{{ course.name }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="col-md-4">
+      <h2>Stats</h2>
       <table class="table">
         <thead><td>Year</td><td>Graduates</td></thead>
         {% for rate in institution.gradrate_set.all %}
@@ -58,8 +53,4 @@
       </table>
     </div>
   </div>
-</div>
-<div class="container">
-  Copyright 2015 A.M.C. Dawes
-</div>
-</html>
+{% include "programs/footer.html" %}

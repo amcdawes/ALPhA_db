@@ -1,20 +1,6 @@
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-<div class="container">
-  <h1>{{ instructor.name }}</h1>
-  <h2><a href="{% url 'institution_detail' instructor.institution.id %}">{{ instructor.institution }}</a>, {{ instructor.institution.state }}</h2>
+{% include "programs/header.html" %}
+  <h1>{{ instructor.name }} <small><a href="{% url 'institution_detail' instructor.institution.id %}">{{ instructor.institution }}</a></small></h1>
     <div class="panel panel-default">
       {% for course in instructor.courses.all %}
         <div class="panel-heading">{{ course.name }}</a></div>
@@ -24,8 +10,4 @@
       {% endfor %}
     </div>
 
-</div>
-<div class="container">
-  Copyright 2015 A.M.C. Dawes
-</div>
-</html>
+{% include "programs/footer.html" %}
