@@ -16,6 +16,7 @@
   <h1>{{ institution.name }}</h1>
   <address>{{institution.state}}, {{institution.zipcode}}</address>
   <a type="button" class="btn btn-default" href="{% url 'instructor_add' institution.id %}">Add Instructor</a>
+  <a type="button" class="btn btn-default" href="{% url 'course_add' institution.id %}">Add Course</a>
   <div class="panel panel-default">
     {% for instructor in institution.instructor_set.all %}
       <div class="panel-heading">

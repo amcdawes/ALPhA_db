@@ -43,7 +43,18 @@ class CourseView(generic.DetailView):
 
 class CourseCreate(CreateView):
     model = Course
-    fields = ['name','level','institution']
+    fields = ['name','level']
+    def my_institution(self, **kwargs):
+        return Institution.objects.get(pk=self.kwargs['instid'])
+
+    def get_context_data(self, **kwargs):
+        context = super(CourseCreate, self).get_context_data(**kwargs)
+        context['institution'] = self.my_institution()
+        return context
+
+    def form_valid(self, form):
+        form.instance.institution = self.my_institution()
+        return super(CourseCreate, self).form_valid(form)
 
 class CourseUpdate(UpdateView):
     model = Course

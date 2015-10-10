@@ -14,7 +14,7 @@
 
 <div class="container">
   <h1>{{ course.name }}</h1>
-  <h2>{{course.institution}}</h2>
+  <h2><a href="{% url 'institution_detail' course.institution.id %}">{{course.institution}}</a></h2>
     <div class="panel panel-default">
       {% for instructor in course.instructor_set.all %}
         <div class="panel-heading">Instructor: {{ instructor.name }}</a></div>
