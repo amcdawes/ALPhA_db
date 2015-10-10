@@ -51,7 +51,6 @@ class CourseUpdate(UpdateView):
 
 class CourseDelete(DeleteView):
     model = Course
-    #success_url = reverse_lazy('detail')
     def get_success_url(self, **kwargs):
         return reverse_lazy('institution_detail', kwargs={'pk': self.get_object().institution.pk})
 
@@ -64,18 +63,32 @@ class InstructorView(generic.DetailView):
 class InstructorCreate(CreateView):
     model = Instructor
     fields = ['name','email','courses']
+    # fields['courses'].queryset = Course.objects.filter(institution__id=kwargs['instid'])
+    def get_form(self, form_class):
+        form = super(InstructorCreate,self).get_form(form_class)
+        form.fields['courses'].queryset = Course.objects.filter(institution__id=self.kwargs['instid'])
+        return form
+
+    def my_institution(self, **kwargs):
+        return Institution.objects.get(pk=self.kwargs['instid'])
+
     def get_context_data(self, **kwargs):
         context = super(InstructorCreate, self).get_context_data(**kwargs)
-        context['institution'] = Institution.objects.get(pk=self.kwargs['instid'])
+        context['institution'] = self.my_institution()
         return context
 
     def form_valid(self, form):
-        form.instance.institution = Institution.objects.get(pk=self.kwargs['instid'])
+        form.instance.institution = self.my_institution()
         return super(InstructorCreate, self).form_valid(form)
 
 class InstructorUpdate(UpdateView):
     model = Instructor
     fields = ['name','email','courses','institution']
+    def get_form(self, form_class):
+        form = super(InstructorUpdate,self).get_form(form_class)
+        form.fields['courses'].queryset = Course.objects.filter(institution = self.get_object().institution)
+        return form
+    template_name_suffix = "_update_form"
 
 class InstructorDelete(DeleteView):
     model = Instructor
