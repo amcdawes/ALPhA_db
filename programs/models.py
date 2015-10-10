@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 
@@ -21,6 +21,9 @@ class Institution(models.Model):
             return ""
         return sum(list)/len(list)
 
+    class Meta:
+        ordering = ['name']
+
 class Instructor(models.Model):
     def __str__(self):
         return self.name
@@ -28,6 +31,8 @@ class Instructor(models.Model):
     name = models.CharField(max_length=200)
     institution = models.ForeignKey(Institution)
     email = models.EmailField(max_length=200)
+    def get_absolute_url(self):
+        return reverse('instructor_detail', kwargs={'pk': self.pk})
 
 
 class Course(models.Model):

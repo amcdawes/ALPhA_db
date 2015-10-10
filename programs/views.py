@@ -29,7 +29,11 @@ class IndexView(generic.ListView):
 
 class DetailView(generic.DetailView):
     model = Institution
-    template_name = 'programs/detail.html'
+    template_name = 'programs/institution_detail.html'
+
+class InstructorView(generic.DetailView):
+    model = Instructor
+    template_name = 'programs/instructor.html'
 
 class EditView(generic.DetailView):
     model = Institution
@@ -45,4 +49,6 @@ class InstructorUpdate(UpdateView):
 
 class InstructorDelete(DeleteView):
     model = Instructor
-    success_url = reverse_lazy('instructor_list')
+    #success_url = reverse_lazy('detail')
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('institution_detail', kwargs={'pk': self.get_object().institution.pk})

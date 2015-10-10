@@ -1,0 +1,31 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <h1>{{ instructor.name }}</h1>
+  <address>{{institution.state}}, {{institution.zipcode}}</address>
+    <div class="panel panel-default">
+      {% for course in instructor.course_set.all %}
+        <div class="panel-heading">{{ course.name }}</a></div>
+          <div class="panel-body">
+            {{ course.name }}
+          </div>
+      {% endfor %}
+    </div>
+
+</div>
+<div class="container">
+  Copyright 2015 A.M.C. Dawes
+</div>
+</html>
