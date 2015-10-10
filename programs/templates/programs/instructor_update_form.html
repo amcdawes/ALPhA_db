@@ -1,0 +1,7 @@
+{% include "programs/header.html" %}
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-default" type="submit">Submit</button>
+</form>
+</div>
+{% include "programs/footer.html" %}
