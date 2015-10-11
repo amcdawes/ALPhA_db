@@ -1,0 +1,3 @@
+ - allow modification of courses from the program view.
+ - add stats button
+ - add other instructor information (url, phone, etc?)

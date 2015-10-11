@@ -79,6 +79,8 @@ class CourseCreate(CreateView):
 class CourseUpdate(UpdateView):
     model = Course
     fields = ['name','level','institution']
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('institution_detail', kwargs={'pk': self.get_object().institution.pk})
 
 class CourseDelete(DeleteView):
     model = Course

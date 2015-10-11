@@ -16,18 +16,19 @@
         {% for instructor in institution.instructor_set.all %}
           <div class="panel-heading">
             <div class="col-md-3">
-              {{ instructor.name }}
+              <a href="mailto:{{instructor.email}}">{{ instructor.name }}</a>
             </div>
             <a type="button" class="btn btn-default" href="{% url 'instructor_detail' instructor.id %}">Details</a>
             <a type="button" class="btn btn-warning" href="{% url 'instructor_update' instructor.id %}">Update</a>
             <a type="button" class="btn btn-danger" href="{% url 'instructor_delete' instructor.id %}">Delete</a>
           </div>
           <div class="panel-body">
-            <ul>
+            <table class="table table-striped">
               {% for course in instructor.courses.all %}
-                <li>{{ course.name }}</a>  ({{ course.get_level_display }})</li>
+                <tr><td><a href="{% url 'course_detail' course.id %}">{{ course.name }}</a></td>
+                  <td>{{ course.get_level_display }}</td><td><a href="{% url 'course_delete' course.id %}">Delete</a></td></tr>
               {% endfor %}
-            </ul>
+            </table>
           </div>
         {% endfor %}
       </div>
@@ -35,11 +36,12 @@
         <div class="panel-heading">All classes:</div>
         <!-- TODO, make this filter only orphan classes -->
         <div class="panel-body">
-          <ul>
+          <table class="table table-striped">
             {% for course in institution.course_set.all %}
-              <li>{{ course.name }}</li>
+            <tr><td><a href="{% url 'course_detail' course.id %}">{{ course.name }}</a></td>
+              <td>{{ course.get_level_display }}</td><td>Delete</td></tr>
             {% endfor %}
-          </ul>
+          </table>
         </div>
       </div>
     </div>
