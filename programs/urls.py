@@ -5,7 +5,10 @@ from .views import *
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^(?P<pk>[0-9]+)/$', InstitutionView.as_view(), name='institution_detail'),
+    # url(r'^search/(?P<search>[a-zA-Z]+)/$', SearchView.as_view(), name='institution_search'),
+    url(r'^search/$', SearchView.as_view(), name='institution_search'),
     url(r'^(?P<pk>[0-9]+)/update/$', InstitutionUpdate.as_view(), name='institution_update'),
+    url(r'^(?P<letter>[a-zA-Z])/$', AlphabetView.as_view(), name='alphabet_view'),
     # url(r'instructor/add/$', InstructorCreate.as_view(), name='instructor_add'),
     url(r'instructor/add/(?P<instid>[0-9]+)/$', InstructorCreate.as_view(), name='instructor_add'),
     url(r'instructor/(?P<pk>[0-9]+)/$', InstructorView.as_view(), name='instructor_detail'),

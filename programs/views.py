@@ -26,6 +26,36 @@ class IndexView(generic.ListView):
         """Return the institutions."""
         return Institution.objects.all()
 
+class AlphabetView(generic.ListView):
+    template_name = 'programs/alphabet_list.html'
+    context_object_name = 'institution_list'
+
+    def get_queryset(self):
+        """Return the institutions."""
+        return Institution.objects.filter(name__startswith=self.kwargs['letter'])
+
+class SearchView(generic.ListView):
+    template_name = 'programs/searchresults.html'
+    context_object_name = 'institution_list'
+    model = Institution
+    #
+    # if request.GET.has_key('search'):
+    #      query = request.GET['search'].strip()
+
+    def get_queryset(self):
+        query = self.request.REQUEST.get("q")
+        return self.model.objects.filter(name__icontains=query)
+        # try:
+        #     # search = self.query
+        #     search = self.kwargs['search']
+        # except:
+        #     search = ''
+        # if (search != ''):
+        #     object_list = self.model.objects.filter(name__icontains = search)
+        # else:
+        #     object_list = self.model.objects.all()
+        # return object_list
+
 
 class InstitutionView(generic.DetailView):
     model = Institution
